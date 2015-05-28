@@ -30,3 +30,19 @@
 
 # Debug files
 *.dSYM/
+
+*.xcscheme
+
+*.xccheckout
+
+*.plist
+
+*.xcuserstate
+
+*.xcworkspacedata
+
+*.pbxproj
+
+*.xcworkspacedata
+
+*.pbxproj
