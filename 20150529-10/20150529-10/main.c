@@ -7,14 +7,14 @@
 //
 
 //内存的动态分配与释放
-//#include <stdlib.h>
+#include <stdlib.h>
 #include <stdio.h>
 int main(){
     int *p;
-//    p = (int *)malloc(sizeof(int) * 20);
+    p = (int *)malloc(sizeof(int) * 20);
     *(p + 2) = 10;
     *(p + 3) = 20;
     printf("%d\n%d\n",*(p + 3),*(p + 2));
-//    free(p);
+    free(p);
     return 0;
 }
