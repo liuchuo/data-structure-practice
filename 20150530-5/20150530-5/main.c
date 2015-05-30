@@ -10,6 +10,7 @@
 //顺序表的基本运算
 #include <stdio.h>
 #define ListSize 100
+typedef int DataType;
 typedef struct{
     DataType list[ListSize];
     int length;
