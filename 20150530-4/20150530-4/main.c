@@ -44,7 +44,7 @@ ListNode *Createpoly(){
 //输出多项式
 void disppoly(ListNode *h){
     ListNode *p;
-    h = p;
+    p = h;
     while(p != NULL){
         if(p->exp == 0){
             printf("%f",p->coef);
