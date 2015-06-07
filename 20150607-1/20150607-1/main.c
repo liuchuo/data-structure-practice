@@ -87,7 +87,7 @@ int StackLength(LinkStack top){
 void DestoryStack(LinkStack top){
     LStackNode *p,*q;
     p = top;
-    while(!p){
+    while(p){
         q = p;
         p = p->next;
         free(q);
