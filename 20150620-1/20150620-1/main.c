@@ -21,11 +21,84 @@ typedef struct {
 }DataType;
 
 #define MaxLENGTH 40
+#define StackSize 100
+
+typedef struct{
+    DataType stack[StackSize];
+    int top;
+}SeqStack;
+
+void InitStack(SeqStack *S){
+    S->top = 0;
+}
+
+int StackEmpty(SeqStack S){
+    if(S.top == 0){
+        return 1;
+    }
+    else{
+        return 0;
+    }
+}
+
+int GetTop(SeqStack S,DataType *e){
+    if(S.top == 0){
+        printf("栈已空~\n");
+        return 0;
+    }
+    else{
+        *e = S.stack[S.top - 1];
+        return 1;
+    }
+}
+
+int PushStack(SeqStack *S,DataType e){
+    if(S->top >= StackSize){
+        printf("栈已满，不能将元素入栈~\n");
+        return 0;
+    }
+    else{
+        S->stack[S->top] = e;
+        S->top++;
+        return 1;
+    }
+}
+
+int PopStack(SeqStack *S,DataType *e){
+    if(S->top == 0){
+        printf("栈中已经没有元素，不能进行出栈操作~\n");
+        return 0;
+    }
+    else{
+        S->top--;
+        *e = S->stack[S->top];
+        return 1;
+    }
+}
+
+int StackLength(SeqStack S){
+    return S.top;
+}
+
+void ClearStack(SeqStack *S){
+    S->top = 0;
+}
+
 typedef int MazeType[MaxLENGTH][MaxLENGTH];
 MazeType m;
 int x,y;
 PosType begin,end;
 int curstep = 1;
+
+void Print(){
+    int i,j;
+    for(i = 0;i < x;i++){
+        for(j = 0;j < y;j++){
+            printf("%3d",m[i][j]);
+        }
+        printf("\n");
+    }
+}
 
 void Init(int k){
     int i,j,x1,y1;
@@ -55,18 +128,8 @@ void Init(int k){
     Print();
     printf("请输入入口的行数，列数：");
     scanf("%d,%d",&begin.x,&begin.y);
-    prinf("请输入出口的行数，列数：");
+    printf("请输入出口的行数，列数：");
     scanf("%d,%d",&end.x,&end.y);
-}
-
-void Print(){
-    int i,j;
-    for(i = 0;i < x;i++){
-        for(j = 0;j < y;j++){
-            printf("%3d",m[i][j]);
-        }
-        printf("\n");
-    }
 }
 
 int Pass(PosType b){
@@ -102,7 +165,43 @@ int MazePath(PosType start,PosType end){
             e.ord = curstep;
             e.seat = curpos;
             e.di = 0;
-            
+            PushStack(&S,e);
+            curstep++;
+            if(curpos.x == end.x && curpos.y == end.y){
+                return 1;
+            }
+            NextPos(&curpos,e.di);
         }
+        else{
+            if(!StackEmpty(S)){
+                PopStack(&S,&e);
+                curstep--;
+                while(e.di == 3 && !StackEmpty(S)){
+                    MarkPrint(e.seat);
+                    PopStack(&S,&e);
+                    curstep--;
+                }
+                if(e.di < 3){
+                    e.di++;
+                    PushStack(&S,e);
+                    curstep++;
+                    curpos = e.seat;
+                    NextPos(&curpos,e.di);
+                }
+            }
+        }
+    }while(!StackEmpty(S));
+    return 0;
+}
+
+int main(){
+    Init(1);
+    if(MazePath(begin,end)){
+        printf("此迷宫从入口到出口的一条路径如下：\n");
+        Print();
     }
+    else{
+        printf("此迷宫没有从入口到出口的路径~\n");
+    }
+    return 0;
 }
