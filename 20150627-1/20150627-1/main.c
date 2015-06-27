@@ -9,18 +9,18 @@
 //舞伴配对的问题
 #include <stdio.h>
 #define QueueSize 60
-typedef struct Squeue{
-    DataType queue[QueueSize];
-    int front;
-    int rear;
-}
-
 typedef struct{
     char name[20];
     char sex;
 }Person;
 
 typedef Person DataType;
+
+typedef struct Squeue{
+    DataType queue[QueueSize];
+    int front;
+    int rear;
+}SeqQueue;
 
 void InitQueue(SeqQueue *SCQ){
     SCQ->front = SCQ->rear = 0;
