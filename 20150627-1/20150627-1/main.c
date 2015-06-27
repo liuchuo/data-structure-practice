@@ -33,10 +33,10 @@ int QueueEmpty(SeqQueue SCQ){
         return 0;
 }
 
-int EnQueue(SeqQueue SCQ,DataType e){
+int EnQueue(SeqQueue *SCQ,DataType e){
     if(SCQ->front == (SCQ->rear + 1) % QueueSize)
         return 0;
-    SCQ->Queue[SCQ->rear] = e;
+    SCQ->queue[SCQ->rear] = e;
     SCQ->rear = (SCQ->rear + 1) % QueueSize;
     return 1;
 }
