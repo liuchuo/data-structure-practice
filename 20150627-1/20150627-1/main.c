@@ -60,6 +60,10 @@ int GetHead(SeqQueue SCQ,DataType *e){
     }
 }
 
+int DancerCount(SeqQueue Q){
+    return(Q.rear-Q.front+QueueSize) % QueueSize;
+}
+
 void DancePartner(DataType dancer[],int num){
     int i;
     DataType p;
@@ -92,10 +96,6 @@ void DancePartner(DataType dancer[],int num){
         GetHead(Mdancers,&p);
         printf("%s将在下一轮中最先得到舞伴.",p.name);
     }
-}
-
-int DancerCount(SeqQueue Q){
-    return(Q.rear-Q.front+QueueSize) % QueueSize;
 }
 
 int main(){
