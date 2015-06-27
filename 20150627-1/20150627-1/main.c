@@ -110,5 +110,6 @@ int main(){
         printf("性别：");
         scanf("%s",&dancer[i].sex);
     }
+    DancePartner(dancer,n);
     return 0;
 }
