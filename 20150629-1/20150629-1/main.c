@@ -35,3 +35,16 @@ int QueueEmpty(LinkQueue LQ){
     else
         return 0;
 }
+
+//将元素e入队的算法实现如下
+int EnQueue(LinkQueue *LQ,DataType e){
+    LQNode *s;
+    s = (LQNode*)malloc(sizeof(LQNode));
+    if(!s)
+        exit(-1);
+    s->data = e;
+    s->next = NULL;
+    LQ->rear->next = s;
+    LQ->rear = s;
+    return 1;
+}
