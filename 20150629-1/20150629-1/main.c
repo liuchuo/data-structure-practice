@@ -48,3 +48,40 @@ int EnQueue(LinkQueue *LQ,DataType e){
     LQ->rear = s;
     return 1;
 }
+
+//将队头元素出队
+int DeQueue(LinkQueue *LQ,DataType *e){
+    LQNode *s;
+    if(LQ->front == LQ->rear)
+        return 0;
+    else{
+        s = LQ->front->next;
+        *e = s->data;
+        LQ->front->next = s->next;
+        if(LQ->rear == s)
+            LQ->rear = LQ->front;
+        free(s);
+        return 1;
+    }
+}
+
+//取队头元素
+int GetHead(LinkQueue LQ,DataType *e){
+    LQNode *s;
+    if(LQ.front == LQ.rear)
+        return 0;
+    else{
+        s = LQ.front->next;
+        *e = s->data;
+        return 1;
+    }
+}
+
+//清空队列
+void ClearQueue(LinkQueue *LQ){
+    while(LQ->front != NULL){
+        LQ->rear = LQ->front->next;
+        free(LQ->front);
+        LQ->front = LQ->rear;
+    }
+}
