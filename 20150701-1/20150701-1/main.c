@@ -68,3 +68,10 @@ void InitQueue(LinkQueue *rear){
     else
         (*rear)->next = *rear;
 }
+
+int QueueEmpty(LinkQueue rear){
+    if(rear->next == rear)
+        return 1;
+    else
+        return 0;
+}
