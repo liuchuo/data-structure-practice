@@ -75,3 +75,44 @@ int QueueEmpty(LinkQueue rear){
     else
         return 0;
 }
+
+int EnQueue(LinkQueue *rear,DataType e){
+    LQNode *s;
+    s = (LQNode *)malloc(sizeof(LQNode));
+    if(!s){
+        exit(-1);
+    }
+    s->data = e;
+    s->next = (*rear)->next;
+    (*rear)->next = s;
+    *rear = s;
+    return 1;
+}
+
+int DeQueue(LinkQueue *rear,DataType *e){
+    LQNode *f,*p;
+    if(*rear == (*rear)->next)
+        return 0;
+    else{
+        f = (*rear)->next;
+        p = f->next;
+        if(p == *rear){
+            *rear = (*rear)->next;
+            (*rear)->next = *rear;
+        }
+        else{
+            f->next = p->next;
+        }
+        *e = p->data;
+        free(p);
+        return 1;
+    }
+}
+
+int main(){
+    LinkQueue LQNode1,LQNode2;
+    LSNode *LStack1,*LStack2;
+    char
+}
+
+
