@@ -110,9 +110,59 @@ int DeQueue(LinkQueue *rear,DataType *e){
 }
 
 int main(){
-    LinkQueue LQNode1,LQNode2;
+    LinkQueue LQueue1,LQueue2;
     LSNode *LStack1,*LStack2;
-    char
+    char str1[] = "ABCDEDCBA";
+    char str2[] = "XYWBWXY";
+    char q1,s1,q2,s2;
+    int i;
+    InitQueue(&LQueue1);
+    InitQueue(&LQueue2);
+    InitStack(&LStack1);
+    InitStack(&LStack2);
+    for(i = 0;i < strlen(str1);i++){
+        EnQueue(&LQueue1,str1[i]);
+        PushStack(LStack1,str1[i]);
+    }
+    for(i = 0;i < strlen(str2);i++){
+        EnQueue(&LQueue2,str2[i]);
+        PushStack(LStack2,str2[i]);
+    }
+    printf("字符序列1：%s\n",str1);
+    printf("出队序列    出栈序列\n");
+    int flag = 1;
+    while(!StackEmpty(LStack1)){
+        DeQueue(&LQueue1,&q1);
+        PopStack(LStack1,&s1);
+        printf("%5c",q1);
+        printf("%10c\n",s1);
+        if(q1 != s1){
+            printf("字符序列1不是回文！");
+            //return 0;
+            flag = 0;
+            break;
+        }
+    }
+    //printf("字符序号1是回文。\n");
+    if(flag) {
+      printf("字符序号1是回文。\n");
+    }
+    
+    
+    printf("字符序列2：%s\n",str2);
+    printf("出队序列    出栈序列\n");
+    while(!StackEmpty(LStack2)){
+        DeQueue(&LQueue2,&q2);
+        PopStack(LStack2,&s2);
+        printf("%5c",q2);
+        printf("%10c\n",s2);
+        if(q2 != s2){
+            printf("字符序列2不是回文！");
+            return 0;
+        }
+    }
+    printf("字符序号2是回文。\n");
+    return 0;
 }
 
 
