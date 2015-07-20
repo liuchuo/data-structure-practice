@@ -31,11 +31,11 @@ void InitString(LinkString *S){
 }
 
 //串的赋值
-int StringAssign(LinkString *S,char *cstr){
+int StrAssign(LinkString *S,char *cstr){
     int i,j,k;
     int len;
     Chunk *p,*q = NULL;
-    len = strlen(cstr);
+    len = (int)strlen(cstr);
     if(!len)
         return 0;
     S->length = len;
@@ -62,4 +62,104 @@ int StringAssign(LinkString *S,char *cstr){
         }
     }
     return 1;
+}
+
+//将串S中的字符复制到字符串cstr中
+int ToChars(LinkString S,char **cstr){
+    Chunk *p = S.head;
+    int i;
+    char *q;
+    *cstr = (char *)malloc((S.length + 1) * sizeof(char));
+    if(!cstr || !S.length)
+        return 0;
+    q = *cstr;
+    while(p){
+        for(i = 0;i < ChunkSize ;i++)
+            if(p->ch[i] != stuff)
+                *q++ = (p->ch[i]);
+        p = p->next;
+    }
+    (*cstr)[S.length] = '\0';
+    return 1;
+}
+
+//比较两个串的大小
+int StrCompare(LinkString S,LinkString T){
+    char *p,*q;
+    int flag = 0;
+    if(ToChars(S,&p))
+        return 0;
+    if(ToChars(T,&q))
+        return 0;
+    while(*p != '\0' && *q != '\0'){
+        if(*p == *q){
+            p++;
+            q++;
+        }
+        else
+            flag = *p - *q;
+    }
+    free(p);
+    free(q);
+    if(*p == '\0' || *q == '\0')
+        return S.length - T.length;
+    else
+        return flag;
+}
+
+//将串T插入串S的第pos个位置
+int StrInsert(LinkString *S,int pos,LinkString T){
+    char *t1;
+    char *s1;
+    int i,j;
+    int flag;
+    if(pos < 1 || pos > S->length + 1)
+        return 0;
+    if(!ToChars(*S,&s1))
+        return 0;
+    if(!ToChars(T,&t1))
+        return 0;
+    j = (int)strlen(s1);
+    s1 = (char *)realloc(s1,(j + 1 + strlen(t1)) * sizeof(char));
+    for(i = j;i >= pos - 1;i--)
+        s1[i + strlen(t1)] = s1[i];
+    for(i = 0;i < strlen(t1);i++)
+        s1[pos - 1 + i] = t1[i];
+    InitString(S);
+    flag = StrAssign(S,s1);
+    free(t1);
+    free(s1);
+    return flag;
+    
+}
+
+
+//将串S中的第pos个字符起的长度为len的子串删除
+int StrDelete(LinkString *S,int pos,int len){
+    char *str;
+    int i;
+    int flag = 0;
+    if(pos < 1 || pos > S->length + 1 - len || len < 0)
+        return 0;
+    if(!ToChars(*S,&str))
+        return 0;
+    for(i = pos - 1 + len;i < (int)strlen(str);i++)
+        str[i - len] = str[i];
+    InitString(S);
+    flag = StrAssign(S,str);
+    free(str);
+    return flag;
+}
+
+//清空串
+void ClearString(LinkString *S){
+    Chunk *p,*q;
+    p = S->head;
+    while(p){
+        q = p->next;
+        free(p);
+        p = q;
+    }
+    S->head = S->tail = NULL;
+    S->length = 0;
 }
