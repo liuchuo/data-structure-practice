@@ -56,3 +56,54 @@ int InitArray(Array *A,int dim,...) {
  3	void va_end(va_list ap)
  这个宏允许使用了 va_start 宏的带有可变参数的函数返回。如果在从函数返回之前没有调用 va_end，则结果为未定义。
  */
+
+
+//数组定位
+int LocateArray(Array A,va_list ap,int *offset){
+    int i,instand;
+    *offset = 0;
+    for(i = 0;i < A.dim;i++){
+        instand = va_arg(ap,int);
+        if(instand < 0 || instand >= A.bounds[i])
+            return 0;
+        *offset = A.constants[i] * instand;
+    }
+    return 1;
+}
+
+//数组的赋值
+int AssignValue(Array A,DataType e,...){
+    va_list ap;
+    int offset;
+    va_start(ap,e);
+    if(LocateArray(A,ap,&offset) == 0)
+        return 0;
+    va_end(ap);
+    *(A.base + offset) = e;
+    return 1;
+}
+
+//返回数组中指定的元素。
+int GetValue(DataType *e,Array A,...){
+    va_list ap;
+    int offset;
+    va_start(ap,A);
+    if(LocateArray(A,ap,&offset) == 0)
+        return 0;
+    va_end(ap);
+    *e = *(A.base + offset);
+    return 1;
+}
+
+
+//销毁数组
+void DestroyArray(Array *A){
+    if(A->base)
+        free(A->base);
+    if(A->bounds)
+        free(A->bounds);
+    if(A->constants)
+        free(A->constants);
+    A->base = A->bounds = A->constants = NULL;
+    A->dim = 0;
+}
