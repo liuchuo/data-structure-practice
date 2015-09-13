@@ -39,76 +39,76 @@
 //    }
 //    return 0;
 //}
-#include <iostream>
-#include <cstdlib>
-
-using namespace std;
-
-typedef struct Node{
-    int element;
-    struct  Node * next;
-}Node;
-
-//Initialize a link list.
-Node * Init(Node * head){
-    if(head == NULL){
-        head = null;
-    }
-    
-    head = (Node * ) malloc (sizeof (Node));
-    return head;
-}
-
-//DestoryList a link list.
-void Drop(Node * head){
-    Node * p = head;
-    while(p->next){
-        head = p;
-        p = p->next;
-        free(head);
-    }
-}
-
-//Clear a link list.
-void Clear(Node * head){
-    if(head->next){
-        drop(head->next);
-    }
-}
-
-//Link list whether is empty.
-bool Empty(Node * head){
-    return (head->next == 0)
-}
-
-//Get the length of the link list.
-int Length(Node * head){
-    Ndoe * p = head;
-    int len = 0;
-    while(p->next){
-        len++;
-        p = p->next;
-    }
-    return len;
-}
-
-/*
- //Find a element by index.
- int GetElement(Node * head, int index){
-	
-	if(index < 0 && index >= Length(head)){
- cout << "You input index are over flow" << endl;
-	}
- 
-	Node * p = head;
-	int i = 0;
-	while(i <= index && p){
- 
-	}
- }
- */
-
-int main(){
-    Node * head;
-    head = init(head);
-}
+//#include <iostream>
+//#include <cstdlib>
+//
+//using namespace std;
+//
+//typedef struct Node{
+//    int element;
+//    struct  Node * next;
+//}Node;
+//
+////Initialize a link list.
+//Node * Init(Node * head){
+//    if(head == NULL){
+//        head = null;
+//    }
+//    
+//    head = (Node * ) malloc (sizeof (Node));
+//    return head;
+//}
+//
+////DestoryList a link list.
+//void Drop(Node * head){
+//    Node * p = head;
+//    while(p->next){
+//        head = p;
+//        p = p->next;
+//        free(head);
+//    }
+//}
+//
+////Clear a link list.
+//void Clear(Node * head){
+//    if(head->next){
+//        drop(head->next);
+//    }
+//}
+//
+////Link list whether is empty.
+//bool Empty(Node * head){
+//    return (head->next == 0)
+//}
+//
+////Get the length of the link list.
+//int Length(Node * head){
+//    Ndoe * p = head;
+//    int len = 0;
+//    while(p->next){
+//        len++;
+//        p = p->next;
+//    }
+//    return len;
+//}
+//
+///*
+// //Find a element by index.
+// int GetElement(Node * head, int index){
+//	
+//	if(index < 0 && index >= Length(head)){
+// cout << "You input index are over flow" << endl;
+//	}
+// 
+//	Node * p = head;
+//	int i = 0;
+//	while(i <= index && p){
+// 
+//	}
+// }
+// */
+//
+//int main(){
+//    Node * head;
+//    head = init(head);
+//}
